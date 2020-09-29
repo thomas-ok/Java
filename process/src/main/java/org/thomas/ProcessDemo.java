@@ -20,7 +20,7 @@ public class ProcessDemo {
         String jarName = jar.getName().replace(".jar", "");
         File unCompressFolder = new File(jar.getParent(), jarName);
         if (!unCompressFolder.exists()) {
-            unCompressFolder.mkdirs();
+            unCompressFolder.mkdir();
         }
         String[] command = {"cmd.exe", "/C", "jar -xvf " + jarPathAndName};
         Process process = null;
