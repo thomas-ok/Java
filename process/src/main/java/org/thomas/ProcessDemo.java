@@ -12,11 +12,11 @@ import java.io.IOException;
 public class ProcessDemo {
     public static void unCompress(String jarPathAndName) {
         File jar = new File(jarPathAndName);
-        File unCompressFolder = new File(jar.getParent(), jar.getName().replace(".jar", ""));
+        //File unCompressFolder = new File(jar.getParent(), jar.getName().replace(".jar", ""));
         String[] command = {"cmd.exe", "/C", "jar -xvf " + jarPathAndName};
         Process process = null;
         try {
-            process = Runtime.getRuntime().exec(command, null, unCompressFolder);
+            process = Runtime.getRuntime().exec(command, null, jar.getParentFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
