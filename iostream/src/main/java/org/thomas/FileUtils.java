@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * author Thomas
@@ -314,6 +318,64 @@ public class FileUtils {
         }
         return true;
 
+    }
+
+    /**
+     * 每一级文件和文件夹
+     * @param path 要遍历到文件夹路径
+     * @return 每一级文件和文件夹
+     */
+    public static List<File> traverseFolder(String path) {
+        List<File> fileList = new ArrayList<>();
+        File file = new File(path);
+        if (file.exists()) {
+            File[] files = file.listFiles();
+            if (null != files && files.length != 0) {
+                for (File subFile : files) {
+                    if (subFile.isDirectory()) {
+                        System.out.println(subFile.getAbsolutePath());
+                        fileList.add(subFile);
+                        fileList.addAll(traverseFolder(subFile.getAbsolutePath()));
+                    } else {
+                        fileList.add(subFile);
+                        System.out.println(subFile.getAbsolutePath());
+                    }
+                }
+            }
+        } else {
+            logger.warn("文件不存在!");
+            return null;
+        }
+        return fileList;
+    }
+
+    /**
+     * 最后一级文件和文件夹
+     * @param file 要遍历到文件夹路径
+     * @return 最后一级文件和文件夹
+     */
+    public static Set<File> traverseFolder(File file) {
+        Set<File> fileSet = new LinkedHashSet<>();
+        if (file.exists()) {
+            File[] files = file.listFiles();
+            if (null == files || files.length == 0) {
+                fileSet.add(file);
+            } else {
+                for (File subFile : files) {
+                    if (subFile.isDirectory()) {
+                        System.out.println(subFile.getAbsolutePath());
+                        fileSet.addAll(traverseFolder(subFile));
+                    } else {
+                        System.out.println(subFile.getAbsolutePath());
+                        fileSet.add(subFile);
+                    }
+                }
+            }
+        } else {
+            logger.warn("文件不存在!");
+            return null;
+        }
+        return fileSet;
     }
 
 
