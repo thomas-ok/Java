@@ -10,13 +10,22 @@ import java.io.IOException;
  * Description:
  */
 public class ProcessDemo {
+    public static void main(String[] args) {
+        String jarPathAndName = "D:\\jarsFolder\\iostream-1.0.0.jar";
+        unCompress(jarPathAndName);
+    }
+
     public static void unCompress(String jarPathAndName) {
         File jar = new File(jarPathAndName);
-        //File unCompressFolder = new File(jar.getParent(), jar.getName().replace(".jar", ""));
+        String jarName = jar.getName().replace(".jar", "");
+        File unCompressFolder = new File(jar.getParent(), jarName);
+        if (!unCompressFolder.exists()) {
+            unCompressFolder.mkdirs();
+        }
         String[] command = {"cmd.exe", "/C", "jar -xvf " + jarPathAndName};
         Process process = null;
         try {
-            process = Runtime.getRuntime().exec(command, null, jar.getParentFile());
+            process = Runtime.getRuntime().exec(command, null, unCompressFolder);
         } catch (IOException e) {
             e.printStackTrace();
         }
