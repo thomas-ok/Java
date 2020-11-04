@@ -1,4 +1,4 @@
-package org.thomas;
+package org.thomas.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -322,6 +322,7 @@ public class FileUtils {
 
     /**
      * 每一级文件和文件夹
+     *
      * @param path 要遍历到文件夹路径
      * @return 每一级文件和文件夹
      */
@@ -351,6 +352,7 @@ public class FileUtils {
 
     /**
      * 最后一级文件和文件夹
+     *
      * @param file 要遍历到文件夹路径
      * @return 最后一级文件和文件夹
      */
@@ -377,6 +379,5 @@ public class FileUtils {
         }
         return fileSet;
     }
-
 
 }

@@ -1,5 +1,7 @@
 package org.thomas;
 
+import org.thomas.util.FileUtils;
+
 import java.io.File;
 
 /**
